@@ -1,29 +1,29 @@
 package org.MindTalk;
 
 class SistemaFacade {
-    private Notificador notificador = new Notificador();
     private DatabaseSingleton banco = DatabaseSingleton.getInstance();
 
-    public Psicologo cadastrarPsicologo(String nome, String crp) {
-        Psicologo psicologo = new Psicologo(nome, crp);
+    public PsicologoSubject cadastrarPsicologo(String nome, String crp) {
+        FactoryUsuario factoryPsicologo = new FactoryPsicologo();
+        PsicologoSubject psicologo = (PsicologoSubject) factoryPsicologo.criarUsuario(nome, crp);
         banco.salvarDados("Psicologo: " + nome + " | CRP: " + crp);
         return psicologo;
     }
 
-    public Paciente cadastrarPaciente(String nome, String cpf) {
-        Paciente paciente = new Paciente(nome, cpf);
+    public PacienteObserver cadastrarPaciente(String nome, String cpf) {
+        FactoryUsuario factoryPaciente = new FactoryPaciente();
+        PacienteObserver paciente = (PacienteObserver) factoryPaciente.criarUsuario(nome, cpf);
         banco.salvarDados("Paciente: " + nome + " | CPF: " + cpf);
-        notificador.adicionarPaciente(new PacienteObserver(nome));
         return paciente;
     }
 
-    public void criarSalaVirtual(String nome, Psicologo psicologo, Paciente paciente) {
+    public void criarSalaVirtual(String nomeSalaVirtual, PsicologoSubject psicologo, PacienteObserver paciente) {
         WearableAdapter wearable = new WearableAdapter(new WearableDevice());
-        SalaVirtual sala = new SalaVirtual(nome, psicologo, paciente, wearable);
+        SalaVirtual sala = new SalaVirtual(nomeSalaVirtual, psicologo, paciente, wearable);
 
-        banco.salvarDados("Sala: " + nome + " | Psicologo: " + psicologo.getNome() + " | Paciente: " + paciente.getNome());
+        banco.salvarDados("Sala: " + nomeSalaVirtual + " | Psicologo: " + psicologo.getNome() + " | Paciente: " + paciente.getNome());
 
-        notificador.notificarTodos("Nova Sala Virtual criada: " + nome);
+        psicologo.notificarPaciente("🎥 Sala Virtual: " + nomeSalaVirtual + " iniciou.");
         sala.iniciarAtendimento();
     }
 }
