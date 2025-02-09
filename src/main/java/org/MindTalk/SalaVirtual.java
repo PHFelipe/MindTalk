@@ -2,11 +2,11 @@ package org.MindTalk;
 
 class SalaVirtual {
     private String nome;
-    private Psicologo psicologo;
-    private Paciente paciente;
+    private PsicologoSubject psicologo;
+    private PacienteObserver paciente;
     private MonitorCardiaco monitor;
 
-    public SalaVirtual(String nome, Psicologo psicologo, Paciente paciente, MonitorCardiaco monitor) {
+    public SalaVirtual(String nome, PsicologoSubject psicologo, PacienteObserver paciente, MonitorCardiaco monitor) {
         this.nome = nome;
         this.psicologo = psicologo;
         this.paciente = paciente;
