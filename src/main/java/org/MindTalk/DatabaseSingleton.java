@@ -1,7 +1,7 @@
 package org.MindTalk;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.List;
 
 class DatabaseSingleton {
     private static DatabaseSingleton instance;
@@ -23,4 +23,19 @@ class DatabaseSingleton {
             e.printStackTrace();
         }
     }
+
+    public boolean pesquisarPsicologo(String nome, String crp) throws FileNotFoundException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                if (linha.contains("Psicologo: " + nome + " | CRP: " + crp)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
 }

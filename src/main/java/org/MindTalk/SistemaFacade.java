@@ -1,5 +1,7 @@
 package org.MindTalk;
 
+import java.io.FileNotFoundException;
+
 class SistemaFacade {
     private DatabaseSingleton banco = DatabaseSingleton.getInstance();
 
@@ -23,7 +25,27 @@ class SistemaFacade {
 
         banco.salvarDados("Sala: " + nomeSalaVirtual + " | Psicologo: " + psicologo.getNome() + " | Paciente: " + paciente.getNome());
 
-        psicologo.notificarPaciente("🎥 Sala Virtual: " + nomeSalaVirtual + " iniciou.");
+        psicologo.notificarPaciente("🎥Sua consulta na " + nomeSalaVirtual + " iniciou, seja bem-vindo(a).");
         sala.iniciarAtendimento();
+    }
+
+    public PsicologoSubject realizarLogin(String Nome, String CRP) throws FileNotFoundException {
+        if(banco.pesquisarPsicologo(Nome, CRP)){
+            FactoryUsuario factoryPsicologo = new FactoryPsicologo();
+            return (PsicologoSubject) factoryPsicologo.criarUsuario(Nome, CRP);
+        }else{
+            return null;
+        }
+    }
+
+
+
+    public void associarPaciente(PsicologoSubject psicologo, PacienteObserver paciente) {
+        psicologo.setPaciente(paciente);
+        banco.salvarDados("Psicologo: " + psicologo.getNome() + " | Paciente: " + paciente.getNome());
+    }
+
+    public boolean pesquisarPsicologo(String nome, String crp) throws FileNotFoundException {
+        return banco.pesquisarPsicologo(nome, crp);
     }
 }
