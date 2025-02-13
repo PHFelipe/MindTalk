@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c040562-0d6c-4687-aa18-d9549eb094d1" name="Changes" comment="feat: adicionando cores à façade principal.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/MindTalk/CoresTerminal.java" afterDir="false" />
-    </list>
+    <list default="true" id="2c040562-0d6c-4687-aa18-d9549eb094d1" name="Changes" comment="fix: corrigindo classe CriarSalaCommand." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739113554537</updated>
       <workItem from="1739113556302" duration="13075000" />
-      <workItem from="1739478617802" duration="541000" />
+      <workItem from="1739478617802" duration="955000" />
     </task>
     <task id="LOCAL-00001" summary="Create Initial Files">
       <option name="closed" value="true" />
@@ -171,7 +169,23 @@
       <option name="project" value="LOCAL" />
       <updated>1739479086510</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: criando a classe de cores.">
+      <option name="closed" value="true" />
+      <created>1739479269309</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1739479269309</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix: corrigindo classe CriarSalaCommand.">
+      <option name="closed" value="true" />
+      <created>1739479570324</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1739479570324</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +200,8 @@
     <MESSAGE value="Fix Bug Facade" />
     <MESSAGE value="feat: adicionando funções à Façade PacienteObserver." />
     <MESSAGE value="feat: adicionando cores à façade principal." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: adicionando cores à façade principal." />
+    <MESSAGE value="feat: criando a classe de cores." />
+    <MESSAGE value="fix: corrigindo classe CriarSalaCommand." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: corrigindo classe CriarSalaCommand." />
   </component>
 </project>
