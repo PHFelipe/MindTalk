@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c040562-0d6c-4687-aa18-d9549eb094d1" name="Changes" comment="fix: corrigindo classe CriarSalaCommand." />
+    <list default="true" id="2c040562-0d6c-4687-aa18-d9549eb094d1" name="Changes" comment="fix: alterando o menu principal.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/MindTalk/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/MindTalk/Main.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -103,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739113554537</updated>
       <workItem from="1739113556302" duration="13075000" />
-      <workItem from="1739478617802" duration="955000" />
+      <workItem from="1739478617802" duration="1280000" />
     </task>
     <task id="LOCAL-00001" summary="Create Initial Files">
       <option name="closed" value="true" />
@@ -185,7 +187,31 @@
       <option name="project" value="LOCAL" />
       <updated>1739479570324</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fix: corrigindo classe CriarSalaCommand.">
+      <option name="closed" value="true" />
+      <created>1739479630825</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1739479630825</updated>
+    </task>
+    <task id="LOCAL-00012" summary="fix: corrigindo classe DatabaseSingleton.">
+      <option name="closed" value="true" />
+      <created>1739479692835</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1739479692835</updated>
+    </task>
+    <task id="LOCAL-00013" summary="fix: alterando o menu principal.">
+      <option name="closed" value="true" />
+      <created>1739479772931</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1739479772931</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,6 +228,8 @@
     <MESSAGE value="feat: adicionando cores à façade principal." />
     <MESSAGE value="feat: criando a classe de cores." />
     <MESSAGE value="fix: corrigindo classe CriarSalaCommand." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: corrigindo classe CriarSalaCommand." />
+    <MESSAGE value="fix: corrigindo classe DatabaseSingleton." />
+    <MESSAGE value="fix: alterando o menu principal." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: alterando o menu principal." />
   </component>
 </project>

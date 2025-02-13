@@ -104,6 +104,7 @@ public class Main {
                     break;
                 case 2:
                     facade.exibirListaPacientes(psicologoLogado);
+
                     break;
                 case 0:
                     System.out.println("👋 Saindo do MindTalk...");
