@@ -11,6 +11,7 @@ public class CriarSalaCommand implements Command{
         this.nomeSala = nomeSala;
         this.psicologo = psicologo;
         this.paciente = paciente;
+        this.psicologo.setPaciente(paciente);
     }
     @Override
     public void iniciarSalaVirtual() {
