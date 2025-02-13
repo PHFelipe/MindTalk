@@ -13,43 +13,43 @@ public class Main {
         String crpPsicologo;
         PsicologoSubject psicologoLogado = null;
 
-        System.out.println("💡 Bem-vindo ao MindTalk 💡");
+        System.out.println(" Bem-vindo ao MindTalk ");
 
         do {
             menu.exibirMenuInicial();
             opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar buffer
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
-                    System.out.println("👨‍⚕️ Cadastrar Psicólogo");
+                    System.out.println(CoresTerminal.AMARELO +"Cadastrar Psicólogo" + CoresTerminal.RESET);
                     System.out.print("Nome: ");
                     nomePsicologo = scanner.nextLine();
                     System.out.print("CRP: ");
                     crpPsicologo = scanner.nextLine();
 
                     if (facade.pesquisarPsicologo(nomePsicologo, crpPsicologo)) {
-                        System.out.println("❌ Psicólogo já cadastrado no sistema.");
+                        System.out.println(CoresTerminal.VERMELHO + "Psicólogo já cadastrado no sistema." + CoresTerminal.RESET);
                     } else {
                         facade.cadastrarPsicologo(nomePsicologo, crpPsicologo);
-                        System.out.println("✅ Psicólogo cadastrado com sucesso.");
+                        System.out.println(CoresTerminal.VERDE + "Psicólogo cadastrado com sucesso." + CoresTerminal.RESET);
                     }
                     break;
 
                 case 2:
-                    System.out.println("👨‍⚕️ Realizar Login");
+                    System.out.println(CoresTerminal.AMARELO + "️Realizar Login" + CoresTerminal.RESET);
                     System.out.print("Nome: ");
                     nomePsicologo = scanner.nextLine();
                     System.out.print("CRP: ");
                     crpPsicologo = scanner.nextLine();
-                   psicologoLogado = facade.realizarLogin(nomePsicologo, crpPsicologo);
+                    psicologoLogado = facade.realizarLogin(nomePsicologo, crpPsicologo);
 
                     if (psicologoLogado != null) {
-                        System.out.println("✅ Login efetuado com sucesso.");
-                        System.out.println("👨‍⚕️ Psicólogo logado: " + psicologoLogado.getNome());
+                        System.out.println(CoresTerminal.VERDE + "Login efetuado com sucesso." + CoresTerminal.RESET);
+                        System.out.println("Psicólogo logado: " +CoresTerminal.BOLD+ psicologoLogado.getNome() + CoresTerminal.RESET);
                         opcao = 100;
                     } else {
-                        System.out.println("❌ Login Não efetuado.");
+                        System.out.println(CoresTerminal.VERMELHO+"Login Não efetuado." + CoresTerminal.RESET);
                     }
                     break;
 
@@ -58,7 +58,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("⚠️ Opção inválida. Por favor, escolha uma opção válida.");
+                    System.out.println(CoresTerminal.BG_VERMELHO+" Opção inválida. Por favor, escolha uma opção válida."+CoresTerminal.RESET);
             }
             if(opcao == 100){
                 break;
@@ -66,33 +66,51 @@ public class Main {
         } while (opcao != 0);
 
         if (opcao == 100) {
-            System.out.println("Cadastre um paciente:");
-            System.out.print("Nome: ");
-            String nomePaciente = scanner.nextLine();
-            System.out.print("CPF: ");
-            String cpfPaciente = scanner.nextLine();
-            PacienteObserver paciente = facade.cadastrarPaciente(nomePaciente, cpfPaciente);
-            facade.associarPaciente(psicologoLogado, paciente);
+//            System.out.println("Cadastre um paciente:");
+//            System.out.print("Nome: ");
+//            String nomePaciente = scanner.nextLine();
+//            System.out.print("CPF: ");
+//            String cpfPaciente = scanner.nextLine();
+//            PacienteObserver paciente = facade.cadastrarPaciente(nomePaciente, cpfPaciente, psicologoLogado);
 
             menu.exibirMenuPrincipal();
             opcao = scanner.nextInt();
-            scanner.nextLine(); // Limpar buffer
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
-                    System.out.println("👨‍⚕️ Iniciar Sala Virtual");
+                    System.out.println(CoresTerminal.AMARELO+" Iniciar Sala Virtual"+CoresTerminal.RESET);
                     System.out.print("Nome da Sala Virtual: ");
                     String nomeSalaVirtual = scanner.nextLine();
+                    System.out.println(CoresTerminal.BOLD+"Voce deseja listar os seus pacientes, para escolher qual será atendido? (S/N)"+CoresTerminal.RESET);
+                    String escolha = scanner.nextLine();
+                    //Exibição dos pacientes para escolha do psicologo
+                    if (escolha.equalsIgnoreCase("S")) {
+                        facade.exibirListaPacientes(psicologoLogado);
+                    }
+                    System.out.println("\nEscolha o paciente que deseja atender");
+                    System.out.println("Digite o nome: ");
+                    String nomePaciente = scanner.nextLine();
+                    System.out.println("Digite o CPF: ");
+                    String cpfPaciente = scanner.nextLine();
+
+                    PacienteObserver paciente = facade.pesquisarPaciente(nomePaciente,cpfPaciente, psicologoLogado);
+                    if(paciente == null){
+                        System.out.println(CoresTerminal.VERMELHO+"Paciente nao encontrado, Tente novamente."+ CoresTerminal.RESET);
+                        break;
+                    }
                     CriarSalaCommand criarSalacommand = new CriarSalaCommand(facade, nomeSalaVirtual, psicologoLogado, paciente);
                     criarSalacommand.iniciarSalaVirtual();
                     break;
-
                 case 2:
+                    facade.exibirListaPacientes(psicologoLogado);
+                    break;
+                case 0:
                     System.out.println("👋 Saindo do MindTalk...");
                     break;
 
                 default:
-                    System.out.println("⚠️ Opção inválida. Por favor, escolha uma opção válida.");
+                    System.out.println(CoresTerminal.VERMELHO+"Opção inválida. Por favor, escolha uma opção válida."+ CoresTerminal.RESET);
             }
         }
 
