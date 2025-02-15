@@ -1,6 +1,8 @@
 package org.MindTalk;
 import org.MindTalk.CoresTerminal;
 
+import java.sql.SQLOutput;
+
 
 public class MindTalkMenu {
     public static void exibirMenuInicial() {
@@ -15,6 +17,7 @@ public class MindTalkMenu {
         System.out.println("\n===== MindTalk - Menu Principal =====");
         System.out.println(CoresTerminal.AZUL + "1 - Iniciar Sala Virtual");
         System.out.println("2 - Listar Pacientes");
+        System.out.println("3 - Cadastrar Paciente");
         System.out.println("0 - Sair" + CoresTerminal.RESET);
         System.out.print("Escolha uma opção: ");
     }

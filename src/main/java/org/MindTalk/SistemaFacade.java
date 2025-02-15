@@ -22,14 +22,11 @@ class SistemaFacade {
         return paciente;
     }
 
-    public void criarSalaVirtual(String nomeSalaVirtual, PsicologoSubject psicologo, PacienteObserver paciente) {
-        WearableAdapter wearable = new WearableAdapter(new WearableDevice());
-        SalaVirtual sala = new SalaVirtual(nomeSalaVirtual, psicologo, paciente, wearable);
-
-        banco.salvarDados("Sala: " + nomeSalaVirtual + " | Psicologo: " + psicologo.getNome() + " | Paciente: " + paciente.getNome());
-
-        psicologo.notificarPaciente("🎥Sua consulta na " + nomeSalaVirtual + " iniciou, seja bem-vindo(a).");
-        sala.iniciarAtendimento();
+    public void iniciarChamadaVirtual(String nomeSalaVirtual, PsicologoSubject psicologo, PacienteObserver paciente) {
+        SalaVirtual sala = new SalaVirtual(nomeSalaVirtual, psicologo, paciente);
+        sala.gerarSalaVirtual(psicologo,paciente);// gera o arquivo de batimentos
+        psicologo.notificarPaciente("Sua consulta na Sala Virtual: " + nomeSalaVirtual + " iniciou, seu psicologo está aguardando.");
+        sala.iniciarChamada();// inicia a leitura
     }
 
     public PsicologoSubject realizarLogin(String Nome, String CRP) throws FileNotFoundException {

@@ -35,7 +35,7 @@ class DatabaseSingleton {
                     encontrado = true;
                     linha = linha.replace(" []", " [" + dadosPaciente + "]");
                     if (linha.contains("[" + dadosPaciente + "]")) {
-                        System.out.println("Paciente já cadastrado.");
+                        //System.out.println("Paciente já cadastrado.");
                     } else if (linha.contains("[")) {
                         linha = linha.replace("]", ", " + dadosPaciente + "]");
                     }
