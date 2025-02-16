@@ -1,7 +1,2 @@
-
-Psicologo: Paulo | CRP: CRP/12345 [Paciente: Joao da silva | CPF: 12345, Paciente: Jose Sarmento | CPF: 987654321, Paciente: Andreza Santos | CPF: 12345678909876, Paciente: Paulo Henrique | CPF: 09875456378]
-
-Psicologo: Andreza | CRP: 12345 [Paciente: Jose | CPF: 984536211]
-Sala: Paulo Sala Virtual  | Psicologo: Paulo | Paciente: Joao da silva
-Sala: Atendimento 1 | Psicologo: Paulo | Paciente: Joao da silva
-Sala: Sala virtual | Psicologo: Paulo | Paciente: Joao da silva
+Psicologo: Paulo | CRP: 12345 [Paciente: Joao da silva | CPF: 1234]
+Paciente: Joao da silva | CPF: 1234
