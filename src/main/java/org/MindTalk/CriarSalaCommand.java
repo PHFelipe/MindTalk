@@ -22,11 +22,6 @@ public class CriarSalaCommand implements Command{
     public void iniciarChamadaVirtual() {
         System.out.println(" Criando Sala Virtual...");
         facade.iniciarChamadaVirtual(nomeSala, psicologo, paciente);
-        try{
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 

@@ -4,7 +4,7 @@ package org.MindTalk;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class PsicologoSubject extends Usuario {
+public class PsicologoSubject extends Usuario implements Observer {
         private String crp;
         private PacienteObserver paciente;
 
@@ -21,7 +21,7 @@ public class PsicologoSubject extends Usuario {
             this.paciente = paciente;
         }
 
-
+        @Override
         public void notificarPaciente(String mensagem) {
             System.out.println(CoresTerminal.AZUL+" enviando notificação ao paciente "+ this.paciente.getNome() + CoresTerminal.RESET);
 

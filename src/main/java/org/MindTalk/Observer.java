@@ -1,5 +1,5 @@
 package org.MindTalk;
 
 public interface Observer {
-    public void notificar(String mensagem);
+    public void notificarPaciente(String mensagem);
 }
