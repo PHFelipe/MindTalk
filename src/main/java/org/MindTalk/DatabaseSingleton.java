@@ -28,14 +28,19 @@ class DatabaseSingleton {
     public void salvarPaciente(String dadosPaciente, String dadosPsicologo){
         List<String> linhas = new ArrayList<>();
         boolean encontrado = false;
+        boolean possuiLogin = false;
+
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))){
             String linha;
             while((linha = reader.readLine()) != null){
+                if(linha.contains(dadosPaciente)){
+                    possuiLogin = true;
+                }
                 if(linha.contains(dadosPsicologo)){
                     encontrado = true;
                     linha = linha.replace(" []", " [" + dadosPaciente + "]");
                     if (linha.contains("[" + dadosPaciente + "]")) {
-                        System.out.println("Paciente já cadastrado.");
+                        //System.out.println("Paciente já cadastrado.");
                     } else if (linha.contains("[")) {
                         linha = linha.replace("]", ", " + dadosPaciente + "]");
                     }
@@ -45,11 +50,15 @@ class DatabaseSingleton {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+        if(!possuiLogin){
+            linhas.add(dadosPaciente);
+        }
         if (encontrado) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
                 for (String linha : linhas) {
                     writer.write(linha);
                     writer.newLine();
+                    writer.flush();
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -120,6 +129,21 @@ class DatabaseSingleton {
             throw new RuntimeException(e);
         }
         return false;
+    }
+
+    public PacienteObserver getPaciente(String nome, String cpf) throws FileNotFoundException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String linha;
+            FactoryPaciente factoryPaciente = new FactoryPaciente();
+            while ((linha = reader.readLine()) != null) {
+                if (linha.contains("Paciente: " + nome + " | CPF: " + cpf)) {
+                    return (PacienteObserver) factoryPaciente.criarUsuario(nome, cpf);
+                }
+            }
+            return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

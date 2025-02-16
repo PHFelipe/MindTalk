@@ -1,6 +1,9 @@
 package org.MindTalk;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class PsicologoSubject extends Usuario {
         private String crp;
         private PacienteObserver paciente;
@@ -20,13 +23,25 @@ public class PsicologoSubject extends Usuario {
 
 
         public void notificarPaciente(String mensagem) {
-            System.out.println("\uD83D\uDCE2 enviando notificação ao paciente "+ this.paciente.getNome());
-            try{
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            System.out.println(CoresTerminal.AZUL+" enviando notificação ao paciente "+ this.paciente.getNome() + CoresTerminal.RESET);
+
+            limparArquivo("notificacoes.txt");
+
+            try(FileWriter fr = new FileWriter("notificacoes.txt",true)){
+                fr.write("notificacao:"+ mensagem);
+            }catch (Exception e) {
+                e.printStackTrace();
             }
-            this.paciente.receberNotificacao(mensagem);
+
+        }
+
+        public void limparArquivo(String arquivo){
+            try(FileWriter fr = new FileWriter(arquivo,false)){
+                fr.flush();
+                //Sobrescrevendo o arquivo
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 }
 

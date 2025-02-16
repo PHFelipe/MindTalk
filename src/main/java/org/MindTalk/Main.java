@@ -15,8 +15,9 @@ public class Main {
 
         System.out.println(" Bem-vindo ao MindTalk ");
 
+        //Sistema de login
         do {
-            menu.exibirMenuInicial();
+            menu.exibirMenuInicialPsicologo();
             opcao = scanner.nextInt();
             scanner.nextLine();
 
@@ -42,7 +43,7 @@ public class Main {
                     nomePsicologo = scanner.nextLine();
                     System.out.print("CRP: ");
                     crpPsicologo = scanner.nextLine();
-                    psicologoLogado = facade.realizarLogin(nomePsicologo, crpPsicologo);
+                    psicologoLogado = facade.realizarLoginPsicologo(nomePsicologo, crpPsicologo);
 
                     if (psicologoLogado != null) {
                         System.out.println(CoresTerminal.VERDE + "Login efetuado com sucesso." + CoresTerminal.RESET);
@@ -54,67 +55,74 @@ public class Main {
                     break;
 
                 case 0:
-                    System.out.println("👋 Saindo do MindTalk...");
+                    System.out.println(CoresTerminal.AMARELO+" Saindo do MindTalk..."+CoresTerminal.RESET);
                     break;
 
                 default:
                     System.out.println(CoresTerminal.BG_VERMELHO+" Opção inválida. Por favor, escolha uma opção válida."+CoresTerminal.RESET);
             }
+
+            //Sistema Principal
             if(opcao == 100){
                 break;
             }
         } while (opcao != 0);
 
         if (opcao == 100) {
-//            System.out.println("Cadastre um paciente:");
-//            System.out.print("Nome: ");
-//            String nomePaciente = scanner.nextLine();
-//            System.out.print("CPF: ");
-//            String cpfPaciente = scanner.nextLine();
-//            PacienteObserver paciente = facade.cadastrarPaciente(nomePaciente, cpfPaciente, psicologoLogado);
+            do {
+                menu.exibirMenuPrincipalPsicologo();
+                opcao = scanner.nextInt();
+                scanner.nextLine();
 
-            menu.exibirMenuPrincipal();
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+                switch (opcao) {
+                    case 1:
+                        System.out.println(CoresTerminal.AMARELO + " Iniciar Sala Virtual" + CoresTerminal.RESET);
+                        System.out.print("Nome da Sala Virtual: ");
+                        String nomeSalaVirtual = scanner.nextLine();
+                        System.out.println(CoresTerminal.BOLD + "Voce deseja listar os seus pacientes, para escolher qual será atendido? (S/N)" + CoresTerminal.RESET);
+                        String escolha = scanner.nextLine();
+                        //Exibição dos pacientes para escolha do psicologo
+                        if (escolha.equalsIgnoreCase("S")) {
+                            facade.exibirListaPacientes(psicologoLogado);
+                        }
+                        System.out.println("\nEscolha o paciente que deseja atender");
+                        System.out.println("Digite o nome: ");
+                        String nomePaciente = scanner.nextLine();
+                        System.out.println("Digite o CPF: ");
+                        String cpfPaciente = scanner.nextLine();
 
-            switch (opcao) {
-                case 1:
-                    System.out.println(CoresTerminal.AMARELO+" Iniciar Sala Virtual"+CoresTerminal.RESET);
-                    System.out.print("Nome da Sala Virtual: ");
-                    String nomeSalaVirtual = scanner.nextLine();
-                    System.out.println(CoresTerminal.BOLD+"Voce deseja listar os seus pacientes, para escolher qual será atendido? (S/N)"+CoresTerminal.RESET);
-                    String escolha = scanner.nextLine();
-                    //Exibição dos pacientes para escolha do psicologo
-                    if (escolha.equalsIgnoreCase("S")) {
-                        facade.exibirListaPacientes(psicologoLogado);
-                    }
-                    System.out.println("\nEscolha o paciente que deseja atender");
-                    System.out.println("Digite o nome: ");
-                    String nomePaciente = scanner.nextLine();
-                    System.out.println("Digite o CPF: ");
-                    String cpfPaciente = scanner.nextLine();
-
-                    PacienteObserver paciente = facade.pesquisarPaciente(nomePaciente,cpfPaciente, psicologoLogado);
-                    if(paciente == null){
-                        System.out.println(CoresTerminal.VERMELHO+"Paciente nao encontrado, Tente novamente."+ CoresTerminal.RESET);
+                        PacienteObserver paciente = facade.pesquisarPaciente(nomePaciente, cpfPaciente, psicologoLogado);
+                        if (paciente == null) {
+                            System.out.println(CoresTerminal.VERMELHO + "Paciente nao encontrado, Tente novamente." + CoresTerminal.RESET);
+                            break;
+                        }
+                        CriarSalaCommand criarSalacommand = new CriarSalaCommand(facade, nomeSalaVirtual, psicologoLogado, paciente);
+                        criarSalacommand.iniciarChamadaVirtual();
                         break;
-                    }
-                    CriarSalaCommand criarSalacommand = new CriarSalaCommand(facade, nomeSalaVirtual, psicologoLogado, paciente);
-                    criarSalacommand.iniciarSalaVirtual();
-                    break;
-                case 2:
-                    facade.exibirListaPacientes(psicologoLogado);
 
-                    break;
-                case 0:
-                    System.out.println("👋 Saindo do MindTalk...");
-                    break;
+                    case 2:
+                        facade.exibirListaPacientes(psicologoLogado);
+                        break;
 
-                default:
-                    System.out.println(CoresTerminal.VERMELHO+"Opção inválida. Por favor, escolha uma opção válida."+ CoresTerminal.RESET);
-            }
+                    case 3:
+                        System.out.println("Cadastre um paciente:");
+                        System.out.print("Nome: ");
+                        nomePaciente = scanner.nextLine();
+                        System.out.print("CPF: ");
+                        cpfPaciente = scanner.nextLine();
+                        PacienteObserver pacienteCadastrado = facade.cadastrarPaciente(nomePaciente, cpfPaciente, psicologoLogado);
+                        System.out.println(CoresTerminal.VERDE + "Paciente cadastrado com sucesso." + CoresTerminal.RESET);
+                        break;
+
+                    case 0:
+                        System.out.println(CoresTerminal.AMARELO+" Saindo do MindTalk..."+CoresTerminal.RESET);
+                        break;
+
+                    default:
+                        System.out.println(CoresTerminal.VERMELHO + "Opção inválida. Por favor, escolha uma opção válida." + CoresTerminal.RESET);
+                }
+            } while (opcao != 0);
         }
-
         scanner.close();
     }
 }

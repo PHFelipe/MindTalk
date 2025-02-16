@@ -1,32 +1,63 @@
 package org.MindTalk;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 class SalaVirtual {
+    private boolean chamadaAtiva = true;
+    private final HeartbeatAdapter wearable;
     private String nome;
     private PsicologoSubject psicologo;
     private PacienteObserver paciente;
-    private MonitorCardiaco monitor;
 
-    public SalaVirtual(String nome, PsicologoSubject psicologo, PacienteObserver paciente, MonitorCardiaco monitor) {
+    public SalaVirtual(String nome, PsicologoSubject psicologo, PacienteObserver paciente) {
         this.nome = nome;
         this.psicologo = psicologo;
         this.paciente = paciente;
-        this.monitor = monitor;
+        this.wearable = new HeartbeatAdapter("batimentos.txt");
     }
 
-    public void iniciarAtendimento() {
-        System.out.println("\n🎥 Sala Virtual: " + nome + " iniciou.");
-        System.out.println("👨‍⚕️ Psicólogo: " + psicologo.getNome() + " | 🏥 Paciente: " + paciente.getNome());
-
-        // Simular monitoramento cardíaco por 10 segundos
-        for (int i = 0; i < 10; i++) {
-            System.out.println("💓 Batimentos cardíacos do paciente: " + monitor.getBatimento() + " BPM");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    public void gerarSalaVirtual(PsicologoSubject psicologo, PacienteObserver paciente) {
+        File arquivo = new File("batimentos.txt");
+        try(FileWriter writer = new FileWriter(arquivo)){
+            writer.flush();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
-        System.out.println("📌 Atendimento encerrado.");
     }
+
+    public void iniciarChamada() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(CoresTerminal.VERDE + " Videochamada iniciada..." + CoresTerminal.RESET);
+        System.out.println(CoresTerminal.AZUL+" Pressione ENTER para encerrar."+CoresTerminal.RESET);
+
+        Thread leitura = new Thread(() -> {
+            while (chamadaAtiva) {
+                int bpm = wearable.getHeartRate();
+                System.out.println(CoresTerminal.VERMELHO+" Batimentos cardíacos: " + CoresTerminal.RESET + CoresTerminal.BOLD+ bpm+ CoresTerminal.RESET+ CoresTerminal.VERMELHO+" BPM" +CoresTerminal.RESET);
+                try {
+                    for (int i =0; i < 10 && chamadaAtiva; i++) {
+                        Thread.sleep(100);//Total = 1 Segundo
+                    }
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        });
+
+        leitura.start();
+        scanner.nextLine();
+        leitura.interrupt();
+        chamadaAtiva = false;
+        try{
+            leitura.join();
+        }catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        System.out.println(CoresTerminal.BOLD+" Videochamada encerrada."+ CoresTerminal.RESET);
+
+    }
+
 }
