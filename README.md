@@ -75,4 +75,11 @@ Atualmente, o sistema funciona via **terminal de comando**, desenvolvido em **Ja
 ## 📝 Conclusão
 O **MindTalk** propõe uma inovação relevante para a psicoterapia online, combinando **tecnologia e análise emocional**. A utilização de padrões de projeto contribuiu para a **organização e flexibilidade** do desenvolvimento, tornando o sistema mais modular e escalável.
 
+## 👨‍💻 Desenvolvedores
+
+- Andreza Costa dos Santos
+
+- Pedro Medeiros das Chagas
+
+- Paulo Henrique dos Santos Felipe
 ---
